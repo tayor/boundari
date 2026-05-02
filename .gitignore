@@ -1,0 +1,12 @@
+.venv/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+*.egg-info/
+__pycache__/
+dist/
+build/
+.coverage
+htmlcov/
+.boundari/
+boundari_audit.jsonl

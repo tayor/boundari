@@ -1,0 +1,79 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "boundari"
+version = "0.1.0"
+description = "Policy-as-code runtime boundaries for Python AI agents"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Tayor" }]
+keywords = ["ai", "agents", "guardrails", "pydantic", "policy", "llm", "security"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Security",
+]
+dependencies = [
+  "pydantic[email]>=2.6",
+  "pyyaml>=6.0",
+  "rich>=13.7",
+  "typer>=0.12,<0.25.1",
+]
+
+[project.optional-dependencies]
+pydantic-ai = ["pydantic-ai>=1.0,<1.1"]
+openai-agents = ["openai-agents>=0.1,<0.2"]
+web = ["fastapi>=0.110"]
+dev = ["build", "mypy", "pytest", "pytest-asyncio", "ruff", "twine", "types-PyYAML"]
+
+[project.scripts]
+boundari = "boundari.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/tayor/boundari"
+Repository = "https://github.com/tayor/boundari"
+Issues = "https://github.com/tayor/boundari/issues"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/prd.md",
+  "/uv.lock",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/boundari"]
+
+[tool.uv]
+constraint-dependencies = [
+  "boto3<1.42",
+  "wcwidth<0.7",
+]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.10"
+check_untyped_defs = true
+warn_unused_configs = true
+warn_unused_ignores = true
+packages = ["boundari"]
